@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fake AI Name Generator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #111;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px;
+    }
+
+    .container {
+      background: #1e1e1e;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,255,255,0.2);
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    input, button {
+      padding: 10px 15px;
+      margin: 10px 5px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+
+    input {
+      width: 70%;
+    }
+
+    button {
+      background: #00d0ff;
+      color: #000;
+      cursor: pointer;
+    }
+
+    .names {
+      margin-top: 20px;
+      list-style: none;
+      padding: 0;
+    }
+
+    .ai-comment {
+      margin-top: 15px;
+      font-style: italic;
+      color: #aaa;
+    }
+
+    .loading {
+      margin-top: 20px;
+      font-style: italic;
+      color: #0ff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>🧠  AI Name Generator</h2>
+    <input type="text" id="themeInput" placeholder="Enter a theme (e.g., Fantasy)">
+    <button onclick="generateNames()">Generate Names</button>
+    <ul class="names" id="nameList"></ul>
+    <div class="ai-comment" id="aiComment"></div>
+    <div class="loading" id="loading" style="display:none;">🤖 Thinking...</div>
+  </div>
+
+  <script>
+    const nameBank = {
+      fantasy: ["Eldrion", "Zathor", "Myrallis", "Kaelthorn", "Fenwick", "Sylmara", "Vorgrimm", "Thalindra"],
+      scifi: ["XR-99", "ZetaCore", "NeoLux", "Quantaris", "Vexon", "Cybria", "Orbiton", "Androvia"],
+      cute: ["Muffin", "Wiggly", "Bubbles", "Tofu", "Snuggz", "Pompom", "Jellybean", "Nibbles"],
+      villain: ["Dreadlock", "Malgore", "Shadrix", "Nocturne", "Hexar", "Doomora", "Tyrannix", "Varnok"],
+      tech: ["Clarityon", "Algovibe", "Nexora", "Devloop", "Codeaxa", "Syntrix", "Qubitly", "Bitnova"],
+      default: ["lovely", "sweety", "judie", "lilly", "hansi", "Nexx", "EchoBolt", "DoodleX"]
+    };
+
+    const comments = [
+      "These names were generated using deep quantum linguistic modeling.",
+      "Name #2 is trending in AI name circles!",
+      "Based on 3 million training parameters... sort of.",
+      "AI suggests using name #5 for main characters.",
+      "Names enhanced using pseudo-random inspiration modules."
+    ];
+
+    function generateNames() {
+      const theme = document.getElementById("themeInput").value.toLowerCase();
+      const names = nameBank[theme] || nameBank.default;
+      const nameList = document.getElementById("nameList");
+      const aiComment = document.getElementById("aiComment");
+      const loading = document.getElementById("loading");
+
+      // Clear and show loading
+      nameList.innerHTML = "";
+      aiComment.innerText = "";
+      loading.style.display = "block";
+
+      setTimeout(() => {
+        loading.style.display = "none";
+
+        // Pick 5 random names
+        const shuffled = names.sort(() => 0.5 - Math.random()).slice(0, 5);
+        nameList.innerHTML = shuffled.map(name => `<li>${name}</li>`).join("");
+        
+        // Random AI comment
+        aiComment.innerText = comments[Math.floor(Math.random() * comments.length)];
+      }, 1500);
+    }
+  </script>
+
+</body>
+</html>
